@@ -54,7 +54,7 @@ const open = ref(false);
         :class="{ block: open, hidden: !open }"
       >
         <ul class="flex flex-col lg:flex-row lg:gap-3">
-          <li v-for="item of menuitems">
+          <li v-for="(item, i) of menuitems" :key="i">
             <a
               :href="item.path"
               class="flex lg:px-3 py-2 text-gray-600 hover:text-gray-900"
