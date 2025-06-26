@@ -4,10 +4,10 @@ const menuitems = [
     title: "Pricing",
     path: "/pricing",
   },
-  // {
-  //   title: "About",
-  //   path: "/about",
-  // },
+  {
+    title: "About",
+    path: "/about",
+  },
   // {
   //   title: "Contact",
   //   path: "/contact",
