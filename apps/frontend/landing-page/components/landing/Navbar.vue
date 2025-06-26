@@ -1,10 +1,6 @@
 <script setup>
 const menuitems = [
   {
-    title: "Features",
-    path: "#",
-  },
-  {
     title: "Pricing",
     path: "/pricing",
   },
@@ -12,10 +8,10 @@ const menuitems = [
     title: "About",
     path: "/about",
   },
-  {
-    title: "Contact",
-    path: "/contact",
-  },
+  // {
+  //   title: "Contact",
+  //   path: "/contact",
+  // },
 ];
 
 const open = ref(false);
