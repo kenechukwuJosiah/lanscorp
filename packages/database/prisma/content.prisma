@@ -1,0 +1,10 @@
+model ContentPost {
+  id        String   @id @default(uuid())
+  title     String
+  body      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  files     File[]   // associated media
+}

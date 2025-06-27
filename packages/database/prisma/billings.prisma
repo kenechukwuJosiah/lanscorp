@@ -1,0 +1,9 @@
+model BillingTransaction {
+  id         String   @id @default(uuid())
+  userId     String
+  amount     Float
+  reference  String   @unique
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+}
