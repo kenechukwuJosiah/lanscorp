@@ -22,3 +22,63 @@ enum FileType {
   AUDIO
   DOCUMENT
 }
+
+model Admin {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BillingTransaction {
+  id         String   @id @default(uuid())
+  userId     String
+  amount     Float
+  reference  String   @unique
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model ContentPost {
+  id        String   @id @default(uuid())
+  title     String
+  body      String
+  userId    String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  files     File[]
+}
+
+model File {
+  id          String     @id @default(uuid())
+  filename    String
+  url         String
+  mimetype    String
+  fileSize    Int         // in bytes
+  type        FileType    // image, video, audio, document
+  uploadedBy  String
+  contentPostId String?   // nullable if not attached to post
+  createdAt   DateTime    @default(now())
+
+  uploader     User       @relation(fields: [uploadedBy], references: [id])
+  contentPost  ContentPost? @relation(fields: [contentPostId], references: [id])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contentPosts ContentPost[]
+  transactions BillingTransaction[]
+  uploadedFiles File[]
+}
