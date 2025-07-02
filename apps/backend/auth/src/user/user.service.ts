@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos';
 import { hash } from 'bcrypt';
-import prisma from '@app/database';
+import { prisma } from '@app/database';
+import type { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -13,8 +14,10 @@ export class UserService {
 
   async signup(createUserDto: CreateUserDto) {
     const { email, password, name } = createUserDto;
-
-    const existingUser = await prisma.user.findUnique({ where: { email } });
+    console.log(createUserDto);
+    const existingUser: User = await prisma.user.findUnique({
+      where: { email },
+    });
     if (existingUser) {
       throw new ConflictException('Email already in use');
     }
