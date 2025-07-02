@@ -51,6 +51,33 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    return user;
+    return { message: 'User retrieved successfully', data: user };
+  }
+
+  async listUsers(page = 1, pageSize = 10) {
+    const skip = (page - 1) * pageSize;
+    const [users, total] = await Promise.all([
+      prisma.user.findMany({
+        skip,
+        take: pageSize,
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      prisma.user.count(),
+    ]);
+    return {
+      message: 'users retrieved successfully',
+      data: users,
+      total,
+      page,
+      pageSize,
+      totalPages: Math.ceil(total / pageSize),
+    };
   }
 }
