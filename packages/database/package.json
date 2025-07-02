@@ -2,18 +2,20 @@
   "name": "@app/database",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc --watch",
     "build": "tsc",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev --name init --schema=./prisma/schema.prisma"
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev --name init --schema=./prisma/schema.prisma",
+    "db:seed": "tsx ./seeders/index.ts"
   },
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "keywords": [],
