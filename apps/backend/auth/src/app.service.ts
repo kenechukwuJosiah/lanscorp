@@ -35,6 +35,6 @@ export class AppService {
 
   async login(payload: { id: string; email: string; role: string }) {
     const token = this.jwtService.sign(payload);
-    return { access_token: token };
+    return { message: 'Login successful', access_token: token };
   }
 }

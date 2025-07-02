@@ -1,12 +1,27 @@
-import { Controller, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Req,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from '../dtos';
+import { CreateUserDto, ListUsersQueryDto } from '../dtos';
 import { Request } from 'express';
 // import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get()
+  listUsers(@Req() req: Request, @Query() query: ListUsersQueryDto) {
+    const page = parseInt(query.page as unknown as string) || 1;
+    const pageSize = parseInt(query.pageSize as unknown as string) || 10;
+    return this.userService.listUsers(page, pageSize);
+  }
 
   @Post('signup')
   signup(@Body() createUserDto: CreateUserDto) {
