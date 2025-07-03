@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: 'JWT_SECRET_KEY',
       signOptions: { expiresIn: '1d' },
     }),
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],
